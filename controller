@@ -1,0 +1,72 @@
+// conect model to controler
+using WebApplication2.Models;
+
+
+namespace WebApplication2.Controllers
+{
+    public class StudentsController : Controller
+    {
+        static IList<Student> studentList = new List<Student>{
+                new Student() {  StudentName = "John", Age = 18 } ,
+                new Student() {  StudentName = "Steve",  Age = 21 } ,
+                new Student() {  StudentName = "Bill",  Age = 25 } ,
+                new Student() {  StudentName = "Ram" , Age = 20 } ,
+                new Student() {  StudentName = "Ron" , Age = 31 } ,
+                new Student() {  StudentName = "Chris" , Age = 17 } ,
+                new Student() {  StudentName = "Rob" , Age = 19 }
+            };
+        // GET: Students
+        public ActionResult Demo(int id,string catogory)
+        {
+            var student = new Student() { Age = id };
+            ViewBag.Id = id;
+            ViewBag.Catogory = catogory;
+            return View(student);
+        }
+        [Loger]
+        public ActionResult Save()
+        {
+
+            return View(studentList);
+        }
+
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
+        public ActionResult Edited()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult Edit(Student std)
+        {
+            var Name = std.StudentName;
+            var Age = std.Age;
+
+            studentList.Add(new Student { StudentName = Name, Age = Age });
+            
+            return RedirectToAction("Save");
+        }
+
+        
+        public ActionResult Delete(Student std)
+        {
+
+
+            return View();
+        }
+
+        [HandleError]
+        public ActionResult Contact()
+        {
+            string msg = null;
+            ViewBag.Message = msg.Length;
+
+            return View();
+        }
+    }
+}
